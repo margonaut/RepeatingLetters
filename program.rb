@@ -4,7 +4,7 @@ def read_from_file(filename)
   text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
 end
 
-def sentence_analyzer(text)
+def find_winning_word(text)
   analyzed_words = analyze_words(text)
   winning_word = analyzed_words.max_by {|k, v| v[1] }
   puts "The winning word is \"#{winning_word[0]}\""
@@ -36,7 +36,8 @@ end
 
 # User Interaction
 
-puts "This program will identify the word in your text file with the most frequently repeated letter"
+puts "This program will identify the word in your text file"
+puts "with the most frequently repeated letter"
 puts "Please enter the name or path of the file you wish to scan."
 puts "For example, 'example.txt'"
 
@@ -49,7 +50,7 @@ end
 
 begin
   text = read_from_file(filename)
-  sentence_analyzer(text)
+  find_winning_word(text)
 rescue Errno::ENOENT => e
   puts "No such file, please try again."
 end
