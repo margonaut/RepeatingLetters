@@ -1,9 +1,9 @@
 require 'pry'
 
-# puts "Please enter the name of the file you wish to scan"
-# filename = gets.strip
+puts "Please enter the name of the file you wish to scan"
+filename = gets.strip
 
-file = File.open("example.txt", "r")
+file = File.open(filename, "r")
 original_text = file.read
 
 text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
