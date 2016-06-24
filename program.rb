@@ -40,8 +40,12 @@ until filename.include?(".txt")
   filename = gets.strip
 end
 
-file = File.open(filename, "r")
-original_text = file.read
-text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
+begin
+  file = File.open(filename, "r")
+  original_text = file.read
+  text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
 
-sentence_analyzer(text)
+  sentence_analyzer(text)
+rescue Errno::ENOENT => e
+  puts "No such file, please try again."
+end
