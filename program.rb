@@ -1,5 +1,3 @@
-require 'pry'
-
 def letter_count(word)
   results = Hash.new(0)
   letters = word.split("")
@@ -9,28 +7,39 @@ def letter_count(word)
   results
 end
 
-def get_most_repeated_letter(word)
+def most_repeated_letter(word)
   letters = letter_count(word)
   most_repeated_letter = letters.max_by { |k, v| v }
 end
 
-def sentence_analyzer(text)
+def analyze_words(text)
   words = text.split(' ')
-  words_with_most_repeated_letter = {}
+  results = {}
   
   words.each do |word|
-    words_with_most_repeated_letter[word] = get_most_repeated_letter(word)
+    results[word] = most_repeated_letter(word)
   end
   
-  winning_word = words_with_most_repeated_letter.max_by {|k, v| v[1] }
-  
-  puts "The winning word is \"#{winning_word[0]},\" with the letter #{winning_word[1][0]} repeated #{winning_word[1][1]} times."
+  results
+end
+
+def sentence_analyzer(text)
+  analyzed_words = analyze_words(text)
+  winning_word = analyzed_words.max_by {|k, v| v[1] }
+  puts "The winning word is \"#{winning_word[0]}\""
+  puts "The letter #{winning_word[1][0]} is repeated #{winning_word[1][1]} times."
+end
+
+def read_from_file(filename)
+  file = File.open(filename, "r")
+  original_text = file.read
+  text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
 end
 
 # User Interaction
 
 puts "This program will identify the word in your text file with the most frequently repeated letter"
-puts "Please enter the name or path of the file you wish to scan"
+puts "Please enter the name or path of the file you wish to scan."
 puts "For example, 'example.txt'"
 
 filename = gets.strip
@@ -41,10 +50,7 @@ until filename.include?(".txt")
 end
 
 begin
-  file = File.open(filename, "r")
-  original_text = file.read
-  text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
-
+  text = read_from_file(filename)
   sentence_analyzer(text)
 rescue Errno::ENOENT => e
   puts "No such file, please try again."
