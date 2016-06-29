@@ -3,6 +3,8 @@ def read_from_file(filename)
   file = File.open(filename, "r")
   original_text = file.read
   text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
+  
+  # stop the program if the file is blank or full of unusable characters
   unless text.length > 0
     abort("This file contains no suitable text")
   end
