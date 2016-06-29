@@ -1,7 +1,13 @@
+# First, extract the test from the file
 def read_from_file(filename)
   file = File.open(filename, "r")
   original_text = file.read
   text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
+  unless text.length > 0
+    abort("This file contains no suitable text")
+  end
+  
+  text
 end
 
 def find_winning_word(text)
