@@ -64,5 +64,9 @@ def score_word(word)
   # The maximum value in our new letter_frequency array will be used
   # as our word score - we don't care about the character, just
   # how many times it repeats
-  score = letter_frequency.max_by { |k,v| v }[1]
+  if letter_frequency.empty?
+    0
+  else
+    score = letter_frequency.max_by { |k,v| v }[1]
+  end
 end
