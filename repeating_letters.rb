@@ -1,5 +1,5 @@
 require 'pry'
-require_relative 'repeating_letters_logic'
+require_relative 'repeating_letters_logic2'
 
 puts "This program will identify the word in your text file"
 puts "with the most frequently repeated letter"

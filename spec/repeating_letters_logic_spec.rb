@@ -58,7 +58,7 @@ describe "get_winning_word" do
   end
   
   it "should return the first occuring word in the event of a tie" do
-    text = "what's that thing? Over there?"
+    text = "what's that? What's THAT!??"
     expect( get_winning_word(text) ).to eq("that?")
   end
   
