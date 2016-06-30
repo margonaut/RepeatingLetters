@@ -27,18 +27,16 @@ describe "Test File Inputs" do
     expect( word ).to eq("foOd")
   end
   
-  it "should exit on an empty file" do
-    begin
-      expect( run_repeating_letters("spec/test_files/empty.txt") ).should raise_error SystemExit
-    rescue SystemExit
-    end
+  it "should exit the program with an error message when given an empty file" do
+    expect{ 
+      run_repeating_letters("spec/test_files/empty.txt")
+    }.to output("Your file contains no valid words.\n").to_stdout
   end
   
-  it "should exit on a file containing less than two suitable characters" do
-    begin
-      expect( run_repeating_letters("spec/test_files/too_short.txt") ).should raise_error SystemExit
-    rescue SystemExit
-    end
+  it "should exit with error message when given a file containing less than two suitable characters" do
+      expect{ 
+        run_repeating_letters("spec/test_files/too_short.txt")
+      }.to output("Your file contains no valid words.\n").to_stdout
   end
   
   it "should continue and return 'aa' on a file with at least two suitable characters" do
