@@ -1,3 +1,5 @@
+require 'pry'
+
 def run_repeating_letters2(filename)
   # open file
   file = open_file(filename)
@@ -106,7 +108,7 @@ def get_winning_word(text)
     # Simply returning the winning string instead of descriptive text 
     # will make integration into our test suite easier. A terminal output
     # is included here for human readability
-    original_words = text.split().
+    original_words = text.split().find_all{ |w| w.length >= winning_score}
     original_word = original_words.find{ |w| w.downcase.gsub(/[^a-z\s]/i, '') == winning_word }
     puts original_word
     original_word
