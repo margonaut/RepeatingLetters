@@ -56,6 +56,7 @@ end
 def get_winning_word(text)
   # Break the text down into individual words
   words = text.split(' ')
+  words = words.sort_by{ |a| a.length }.reverse
   
   # We're only going to maintain the word in the winning position
   # along with the corresponding score
@@ -63,31 +64,35 @@ def get_winning_word(text)
   winning_score = 0
   
   words.each do |word|
-    # We want to keep the original text handy for our final output,
-    # but we'll need to score our words based on a version cleaned up with
-    # a regex pattern.
-    stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
-    
-    # Let's make sure there are repeated characters
-    # present in our word before we continue. Otherwise,
-    # our program will move on to the next word
-    if has_repeated_letters?(stripped_word)
+    if word.length > winning_score
+      # We want to keep the original text handy for our final output,
+      # but we'll need to score our words based on a version cleaned up with
+      # a regex pattern.
+      stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
       
-      # now that we know we're working with a word
-      # that contains repeated letters, let's evaluate it for
-      # a score - the highest number of times a letter is repeated
-      score = score_word(stripped_word)
-      
-      # Compare this score with that of the current winning word.
-      # Since the first word with the highest score is the one
-      # we want to return, we'll only replace our winning_word
-      # if we have a score that is greater, not just equal to
-      # the current winner
-      if score > winning_score
-        winning_score = score
-        winning_word = word
-      end
-    end  
+      # Let's make sure there are repeated characters
+      # present in our word before we continue. Otherwise,
+      # our program will move on to the next word
+      if has_repeated_letters?(stripped_word)
+        
+        # now that we know we're working with a word
+        # that contains repeated letters, let's evaluate it for
+        # a score - the highest number of times a letter is repeated
+        score = score_word(stripped_word)
+        
+        # Compare this score with that of the current winning word.
+        # Since the first word with the highest score is the one
+        # we want to return, we'll only replace our winning_word
+        # if we have a score that is greater, not just equal to
+        # the current winner
+        if score > winning_score
+          winning_score = score
+          winning_word = word
+        end
+      end  
+    else
+      winning_word
+    end
   end
   
   
