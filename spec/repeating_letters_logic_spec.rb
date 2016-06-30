@@ -42,7 +42,7 @@ describe "open_file" do
   it "should rescue an invalid file path and output an error message" do
     expect{ 
       open_file('spec/test_files/invalid.txt') 
-    }.to output("No such file, please try again.\n").to_stdout
+    }.to output("No such file.\n").to_stdout
   end
 end
 

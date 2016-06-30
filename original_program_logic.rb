@@ -12,7 +12,7 @@ end
 def find_winning_word(text)
   analyzed_words = analyze_words(text)
   winning_word = analyzed_words.max_by {|k, v| v[1] }
-  winning_word[0]
+  puts winning_word[0]
   # puts "The winning word is \"#{winning_word[0]}\""
   # puts "The letter #{winning_word[1][0]} is repeated #{winning_word[1][1]} times."
 end

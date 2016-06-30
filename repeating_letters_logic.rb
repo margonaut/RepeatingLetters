@@ -8,8 +8,7 @@ def run_repeating_letters(filename)
 end
 
 def get_file_name
-  puts "Please enter the name or path of the file you wish to scan"
-  puts "For example, 'example.txt'"
+  puts "Enter the path of the .txt file you wish to scan"
   
   # Grab the filepath from user input, and strip it to make
   # sure we're getting only the string and not any newline characters
@@ -19,7 +18,7 @@ def get_file_name
   # basic check by making sure the given path ends with the
   # correct file extension
   until filename.end_with?(".txt")
-    puts "Please make sure you are entering a file name or path ending with .txt"
+    puts "Entering a file path ending with .txt"
     filename = get_file_name
   end
   filename
@@ -31,7 +30,7 @@ def open_file(filename)
   begin
     file = File.open(filename, "r")
   rescue Errno::ENOENT => e
-    puts "No such file, please try again."
+    puts "No such file."
   end
 end
 
@@ -46,7 +45,7 @@ def read_text_from_file(file)
   # character could contain no duplicates and does not
   # meet our criteria
   unless stripped_text.length >= 2
-    abort("This file does not contain suitable text content")
+    abort("Invalid content")
   end
   
   # Return the original text since we want to maintain formatting
@@ -67,7 +66,7 @@ def get_winning_word(text)
     # We want to keep the original text handy for our final output,
     # but we'll need to score our words based on a version cleaned up with
     # a regex pattern.
-    stripped_word = word.downcase.gsub(/[^a-z0-9\s]/i, '')
+    stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
     
     # Let's make sure there are repeated characters
     # present in our word before we continue. Otherwise,
@@ -103,7 +102,7 @@ def get_winning_word(text)
   else
     # If a winning_word does not exist, we know we have not found
     # any words with repeating letters in the given text
-    puts "This text does not contain any words with repeating letters"
+    puts "No repeating letters."
   end
 end
 
@@ -127,6 +126,6 @@ def score_word(word)
   # The maximum value in our new letter_frequency array will be used
   # as our word score - we don't care about the character, just
   # how many times it repeats
-  score = letter_frequency.max_by { |k, v| v }[1]
+  score = letter_frequency.max_by { |k,v| v }[1]
 end
 

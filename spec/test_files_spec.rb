@@ -34,6 +34,6 @@ describe "Test File Inputs" do
   it "should output an error message if the text file contains no words with repeating letters" do
     expect{ 
       run_repeating_letters("spec/test_files/no_repeats.txt") 
-    }.to output("This text does not contain any words with repeating letters\n").to_stdout
+    }.to output("No repeating letters.\n").to_stdout
   end
 end
