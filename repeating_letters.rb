@@ -1,5 +1,5 @@
 require 'pry'
-require_relative 'program_logic'
+require_relative 'repeating_letters_logic'
 
 
 puts "This program will identify the word in your text file"
@@ -17,11 +17,4 @@ if file
   get_winning_word(text)
 end
 
-
-# Things to improve next time
-
 # Add unit tests -> helps identify errors, edge cases
-# Putting logic code into separate file
-# Check for explicitly specified return value format
-# Improve regular expressions , roll your own
-# Documentation, code comments

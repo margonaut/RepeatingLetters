@@ -110,6 +110,7 @@ def get_winning_word(text)
     # Simply returning the winning string instead of descriptive text 
     # will make integration into our test suite easier
     puts winning_word
+    winning_word
   else
     # If the winning_word score is still 0, we know we have not found
     # any words with repeating letters in the given text
