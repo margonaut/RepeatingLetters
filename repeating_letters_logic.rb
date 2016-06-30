@@ -73,14 +73,14 @@ def read_text_from_file(file)
   text
 end
 
-def get_winning_word(text)
+# def get_winning_word(text)
   # We're only going to maintain the word in the winning position
   # along with the corresponding score
-  winning_word = nil
-  winning_score = 0
+  # winning_word = nil
+  # winning_score = 0
   
   # Break the text down into individual words
-  words = text.split(' ')
+  # words = text.split(' ')
   
   # Sort by the length of the words with extra characters removed, longest first.
   # words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse

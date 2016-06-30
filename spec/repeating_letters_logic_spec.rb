@@ -1,5 +1,7 @@
 require_relative '../repeating_letters_logic'
+require 'pry'
 require 'stringio'
+
 
 describe "get_file_name" do
   describe "valid input" do
