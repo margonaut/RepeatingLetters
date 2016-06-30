@@ -1,8 +1,9 @@
 def run_repeating_letters(filename)
-  # open file
   file = open_file(filename)
+  
   # retreive text content from file
   text = read_text_from_file(file)
+  
   # retreive winning word from text content
   get_winning_word(text)
 end
@@ -12,6 +13,7 @@ def get_file_name
   
   # Grab the filepath from user input, and strip it to make
   # sure we're getting only the string and not any newline characters
+  # In this case I'm using $stdin for convenient test stubbing
   filename = $stdin.gets.chomp
   
   # Our program is looking for a text file. We can perform a first
@@ -63,9 +65,9 @@ def get_winning_word(text)
   winning_score = 0
   
   words.each do |word|
-    # We want to keep the original text handy for our final output,
-    # but we'll need to score our words based on a version cleaned up with
-    # a regex pattern.
+    # While certainly a performance hit, we want to keep the original text handy 
+    # for our final output. We'll need to score our words based on a version 
+    # cleaned up with a regex pattern.
     stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
     
     # Let's make sure there are repeated characters
@@ -96,8 +98,8 @@ def get_winning_word(text)
   if winning_word
     # Simply returning the winning string instead of descriptive text 
     # will make integration into our test suite easier. A terminal output
-    # is included here for human readability
-    # puts winning_word
+    # is included here for terminal readability, though optional
+    puts winning_word
     winning_word
   else
     # If a winning_word does not exist, we know we have not found
