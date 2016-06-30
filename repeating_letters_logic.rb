@@ -48,7 +48,7 @@ def read_text_from_file(file)
     abort("Invalid content")
   end
   
-  # Return the original text since we want to maintain formatting
+  # Return the original text for now since we want to maintain formatting
   # for our final output
   text
 end
