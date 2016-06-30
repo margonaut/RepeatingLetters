@@ -4,75 +4,77 @@ require 'stringio'
 
 
 describe "run_repeating_letters" do
-  it "should handle valid file name" do
-    word = run_repeating_letters('spec/test_files/valid.txt')
-    expect( word ).to eq("Example")
-  end
   
-  it "should exit with an error when given an invalid path" do
-    expect{ 
-      run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
-    }.to output("No such file.\n").to_stdout
-  end
-
-  it "should exit with an error when given an empty file" do
-    expect{ 
-      run_repeating_letters("spec/test_files/empty.txt")
-    }.to output("Your file contains no valid words.\n").to_stdout
-  end
-
-  it "should exit with error when given a file containing less than two suitable characters" do
+  describe "handle different file states" do
+    
+    it "should handle valid file name" do
+      word = run_repeating_letters('spec/test_files/valid.txt')
+      expect( word ).to eq("Example")
+    end
+    
+    it "should exit with an error when given an invalid path" do
+      expect{ 
+        run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
+      }.to output("No such file.\n").to_stdout
+    end
+    
+    it "should exit with an error when given an empty file" do
+      expect{ 
+        run_repeating_letters("spec/test_files/empty.txt")
+      }.to output("Your file contains no valid words.\n").to_stdout
+    end
+    
+    it "should exit with error when given a file containing less than two suitable characters" do
       expect{ 
         run_repeating_letters("spec/test_files/too_short.txt")
       }.to output("Your file contains no valid words.\n").to_stdout
+    end
+    
+    it "should continue when given a file containing at least two valid characters" do
+      word = run_repeating_letters("spec/test_files/just_long_enough.txt")
+      expect( word ).to eq("aa")
+    end
+    
+    it "should exit with an error if the text file contains no words with repeating letters" do
+      expect{ 
+        run_repeating_letters("spec/test_files/no_repeats.txt") 
+      }.to output("Your file contains no valid words.\n").to_stdout
+    end
   end
-
-  it "should continue when given a file containing at least two valid characters" do
-    word = run_repeating_letters("spec/test_files/just_long_enough.txt")
-    expect( word ).to eq("aa")
-  end
-
-  it "should exit with an error if the text file contains no words with repeating letters" do
-    expect{ 
-      run_repeating_letters("spec/test_files/no_repeats.txt") 
-    }.to output("Your file contains no valid words.\n").to_stdout
+  
+  describe "return the correct word from text files with variosu content" do
+    
+    it "should return 'wherefore' from romeo.txt" do
+      word = run_repeating_letters("spec/test_files/romeo.txt")
+      expect( word ).to eq("wherefore")
+    end
+    
+    it "should ignore repeated punctuation and return 'zoom' from punctuation.txt" do
+      word = run_repeating_letters("spec/test_files/punctuation.txt")
+      expect( word ).to eq("zoom")
+    end
+    
+    it "should return the first qualifying winner word in the event of a tie" do
+      word = run_repeating_letters("spec/test_files/ties.txt")
+      expect( word ).to eq("hello!")
+    end
+    
+    it "should treat upper and lower case equaly and return 'foOd' from capitalization.txt" do
+      word = run_repeating_letters("spec/test_files/capitalization.txt")
+      expect( word ).to eq("foOd")
+    end
+    
+    it "should return the full text of a word made of a single letter" do
+      word = run_repeating_letters("spec/test_files/single_letter.txt")
+      expect( word ).to eq("aaaaaaaaaaaa")
+    end
+    
+    it "should maintain all formatting and punctuation in the answer string" do
+      word = run_repeating_letters("spec/test_files/original_formatting.txt")
+      expect( word ).to eq("s-U-n-Nn'!y")
+    end
   end
 end
-
-# describe "open_file" do
-#   it "should return a File object for a valid file path" do
-#     expect( open_file('spec/test_files/valid.txt').class ).to eq(File)
-#   end
-# end
-
-# describe "read_text_from_file" do
-#   it "should return the text of a valid file" do
-#     file = open_file('spec/test_files/valid.txt')
-#     expect( read_text_from_file(file) ).to eq "Example text file."
-#   end
-#   
-#   it "should abort if the text file is empty" do
-#     file = open_file('spec/test_files/empty.txt')
-#     begin
-#       expect( read_text_from_file(file) ).should raise_error SystemExit
-#     rescue SystemExit
-#     end  
-#   end
-#   
-#   it "should abort if the text file contains less than two viable characters" do
-#     file = open_file('spec/test_files/too_short.txt')
-#     begin
-#       expect( read_text_from_file(file) ).should raise_error SystemExit
-#     rescue SystemExit
-#     end
-#   end
-# end
-
-#   
-  # it "should return the first occuring word in the event of a tie" do
-  #   text = "what's that? What's THERE!??"
-  #   expect( get_winning_word(text) ).to eq("that?")
-  # end
 
 # repeated letters
 

@@ -18,9 +18,10 @@ def get_file_name
 end
 
 def run_repeating_letters(filename)
+  # we'll only maintain the single word in the winning position
   winning_word = nil
-  # the score to beat starts off at 1, as we're looking for duplicate
-  # counts of at least 2
+  # the score to beat starts off at 1 because we're looking for duplicate
+  # character counts of at least 2
   winning_score = 1
   
   # we should wrap our file opener in an error handler to catch
