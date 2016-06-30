@@ -7,24 +7,24 @@ puts "BENCHMARK TIMES \n"
 
 puts "\n Repeating Letters - Updated Version \n "
 Benchmark.bm do |x|
-  x.report("Romeo        ") { run_repeating_letters("spec/test_files/romeo.txt") }
-  x.report("War and Peace") { run_repeating_letters("spec/test_files/war_and_peace.txt") }
+  x.report("Romeo:       ") { run_repeating_letters("spec/test_files/romeo.txt") }
+  x.report("War and Peace:") { run_repeating_letters("spec/test_files/war_and_peace.txt") }
 end
 
 puts "\n\n\------------------------\n\n\ "
 
 puts "Repeating Letters - First Version \n\ "
 Benchmark.bm do |x|
-  x.report("Romeo        ") { run_original_program("spec/test_files/romeo.txt") }
-  x.report("War and Peace") { run_original_program("spec/test_files/war_and_peace.txt") }
+  x.report("Romeo:        ") { run_original_program("spec/test_files/romeo.txt") }
+  x.report("War and Peace:") { run_original_program("spec/test_files/war_and_peace.txt") }
 end
 
 puts "\n\nEFFICIENCY MEASURES"
 
-puts "\n Repeating Letters - Updated Version \n "
+puts "\n Repeating Letters - Updated Version"
+puts "Running 'War and Peace'"
 
 RubyProf.start
-puts 'updated version - war and peace'
  run_repeating_letters("spec/test_files/war_and_peace.txt")
 result = RubyProf.stop
 
@@ -33,9 +33,9 @@ printer.print(STDOUT)
 
 puts "\n\n\------------------------\n\n\ "
 
-puts " Repeating Letters - First Version \n "
+puts "Repeating Letters - First Version"
+puts "Running 'War and Peace'  \n "
 RubyProf.start
-puts 'updated version - war and peace'
  run_original_program("spec/test_files/war_and_peace.txt")
 result = RubyProf.stop
 

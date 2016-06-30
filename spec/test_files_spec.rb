@@ -12,6 +12,16 @@ describe "Test File Inputs" do
     expect( word ).to eq("wherefore")
   end
   
+  it "should ignore punctuation and return 'zoom' from punctuation.txt" do
+    word = run_repeating_letters("spec/test_files/punctuation.txt")
+    expect( word ).to eq("zoom")
+  end
+  
+  it "should treat upper and lower case equaly and return 'foOd' from capitalization.txt" do
+    word = run_repeating_letters("spec/test_files/capitalization.txt")
+    expect( word ).to eq("foOd")
+  end
+  
   it "should exit on an empty file" do
     begin
       expect( run_repeating_letters("spec/test_files/empty.txt") ).should raise_error SystemExit

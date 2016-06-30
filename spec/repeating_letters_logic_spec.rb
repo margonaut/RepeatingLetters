@@ -16,6 +16,20 @@ describe "get_file_name" do
   end
 end
 
+describe "run_repeating_letters - wrapper method, contained logic tested separately" do
+  it "should return the correct answer when given a valid file name" do
+    word = run_repeating_letters('spec/test_files/valid.txt')
+    expect( word ).to eq("Example")
+  end
+  
+  # it "should give the correct response to a nonexistant file name" do
+  #   begin
+  #     expect( run_repeating_letters('spec/test_files/sdfsdfvalid.txt') ).should raise_error SystemExit
+  #   rescue SystemExit
+  #   end  
+  # end
+end
+
 describe "open_file" do
   it "should return a File object for a valid file path" do
     expect( open_file('spec/test_files/valid.txt').class ).to eq(File)
@@ -36,6 +50,14 @@ describe "read_text_from_file" do
   
   it "should abort if the text file is empty" do
     file = open_file('spec/test_files/empty.txt')
+    begin
+      expect( read_text_from_file(file) ).should raise_error SystemExit
+    rescue SystemExit
+    end  
+  end
+  
+  it "should abort if the text file does not exist" do
+    file = open_file('spec/test_files/adsfasdfasdf.txt')
     begin
       expect( read_text_from_file(file) ).should raise_error SystemExit
     rescue SystemExit
