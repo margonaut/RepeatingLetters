@@ -18,7 +18,7 @@ describe "Test File Inputs" do
   end
   
   it "should return the first qualifying winner word in the event of a tie" do
-    word = run_repeating_letters("spec/test_files/tie.txt")
+    word = run_repeating_letters("spec/test_files/ties.txt")
     expect( word ).to eq("hello!")
   end
   
@@ -49,6 +49,6 @@ describe "Test File Inputs" do
   it "should output an error message if the text file contains no words with repeating letters" do
     expect{ 
       run_repeating_letters("spec/test_files/no_repeats.txt") 
-    }.to output("No repeating letters.\n").to_stdout
+    }.to output("Your file contains no valid words.\n").to_stdout
   end
 end
