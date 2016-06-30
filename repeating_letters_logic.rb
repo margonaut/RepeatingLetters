@@ -1,12 +1,4 @@
-def run_repeating_letters(filename)
-  # open file
-  file = open_file(filename)
-  # retreive text content from file
-  text = read_text_from_file(file)
-  # retreive winning word from text content
-  get_winning_word(text)
-end
-
+# Users will be prompted for a file path when the program starts
 def get_file_name
   puts "Enter the path of the .txt file you wish to scan"
   
@@ -18,10 +10,19 @@ def get_file_name
   # basic check by making sure the given path ends with the
   # correct file extension
   until filename.end_with?(".txt")
-    puts "Entering a file path ending with .txt"
+    puts "Enter a file path ending with .txt"
     filename = get_file_name
   end
   filename
+end
+
+def run_repeating_letters(filename)
+  # The main program behavior is separated in this
+  # wrapper method for convinient use in benchmarking and
+  # some areas of the test suite
+  file = open_file(filename)
+  text = read_text_from_file(file)
+  get_winning_word(text)
 end
 
 def open_file(filename)
