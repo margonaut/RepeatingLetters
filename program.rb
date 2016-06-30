@@ -5,7 +5,7 @@ def read_from_file(filename)
   text = original_text.downcase.gsub(/[^a-z0-9\s]/i, '')
   
   # stop the program if the file is blank or full of unusable characters
-  unless text.length > 0
+  unless text.length > 1
     abort("This file contains no suitable text")
   end
   
