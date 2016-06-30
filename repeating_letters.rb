@@ -7,7 +7,7 @@ puts "with the most frequently repeated letter"
 # This method prompts the user for a text file path
 # and allows them to proceed only once a valid file is
 # successfully opened
-file = get_file
+file = open_file(get_file_name)
 
 if file
   # If a file object is present, retrieve the text

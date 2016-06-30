@@ -1,4 +1,4 @@
-def get_file
+def get_file_name
   puts "Please enter the name or path of the file you wish to scan"
   puts "For example, 'example.txt'"
   
@@ -13,15 +13,16 @@ def get_file
     puts "Please make sure you are entering a file name or path ending with .txt"
     filename = gets.strip
   end
-  
+  filename
+end
+
+def open_file(filename)
   # We want to return a File object if the given path leads to an
-  # existing file. If not, we catch the error and give them an
-  # opportunity to try again
+  # existing file. If not, we catch the error and exit the program
   begin
     file = File.open(filename, "r")
   rescue Errno::ENOENT => e
     puts "No such file, please try again."
-    get_file
   end
 end
 
