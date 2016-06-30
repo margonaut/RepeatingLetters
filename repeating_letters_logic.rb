@@ -48,7 +48,9 @@ def run_repeating_letters(filename)
       end
     end
     if winning_word
+      # output the winning_word for terminal readability
       puts winning_word
+      # return the value for testing
       winning_word
     else
       puts "Your file contains no valid words."
