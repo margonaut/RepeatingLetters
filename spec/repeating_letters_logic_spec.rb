@@ -14,24 +14,6 @@ describe "get_file_name" do
       expect(get_file_name).to be == "text.txt"
     end
   end
-  
-  # describe "invalid input" do
-  #   before do
-  #     $stdin = StringIO.new("invalid\n")
-  #   end
-  #   after do
-  #     $stdin = STDIN
-  #   end
-  #   it "should abort the program after invalid path is provided" do
-  #     begin
-  #       expect( read_text_from_file(file) ).should raise_error SystemExit
-  #     rescue SystemExit
-  #     end  
-  #     # expect{ 
-  #     #   get_file_name 
-  #     # }.to output("Please make sure you are entering a file name or path ending with .txt\n").to_stdout
-  #   end
-  # end
 end
 
 describe "open_file" do
@@ -76,8 +58,8 @@ describe "get_winning_word" do
   end
   
   it "should return the first occuring word in the event of a tie" do
-    text = "what's that there?"
-    expect( get_winning_word(text) ).to eq("that")
+    text = "what's that thing? Over there?"
+    expect( get_winning_word(text) ).to eq("that?")
   end
   
   it "should ignore punctuation" do

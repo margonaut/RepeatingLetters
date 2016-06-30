@@ -56,7 +56,8 @@ end
 def get_winning_word(text)
   # Break the text down into individual words
   words = text.split(' ')
-  words = words.sort_by{ |a| a.length }.reverse
+  # words = words.reverse.sort_by{ |a| a.length }.reverse
+  words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
   
   # We're only going to maintain the word in the winning position
   # along with the corresponding score
@@ -64,6 +65,10 @@ def get_winning_word(text)
   winning_score = 0
   
   words.each do |word|
+    # We can greatly reduce the runtime at scale by eliminating a big chunk
+    # of short words. Because we maintain the winning score and have sorted
+    # our words array by length, we know that the winning score will be
+    # impossible to beat once we reach words with less letters than that score
     if word.length > winning_score
       # We want to keep the original text handy for our final output,
       # but we'll need to score our words based on a version cleaned up with
