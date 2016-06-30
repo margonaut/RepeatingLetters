@@ -21,12 +21,7 @@ def run_repeating_letters(filename)
   # The main program behavior is separated from terminal input 
   # interaction in this wrapper method for convinient use in 
   # benchmarking and some areas of the test suite
-  File.open('filename', 'r') do |file|
-    file.each_line do |line|
-      
-    end
-    
-  end
+  if file = open_file(filename)
     text = read_text_from_file(file)
     get_winning_word(text)
   end
@@ -45,7 +40,6 @@ end
 def read_text_from_file(file)
   # First, extract the text from our file object
   text = file.read
-  File.open(filename, "r") do |f|
   
   # strip the text down to usable characters only
   stripped_text = text.downcase.gsub(/[^a-z0-9\s]/i, '')
@@ -73,11 +67,11 @@ def get_winning_word(text)
   
   # Sort by the length of the words with extra characters removed, longest first.
   # words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
- #  # 
- # words_and_lengths = words.map{|w|score_word(w)}.reduce Hash.new, :merge
- # max = words_and_lengths.keys.max
- # winning_word = words_and_lengths[max]
- # winning_score = max
+  # 
+ words_and_lengths = words.map{|w|score_word(w)}.reduce Hash.new, :merge
+ max = words_and_lengths.keys.max
+ winning_word = words_and_lengths[max]
+ winning_score = max
   
   
   # words.each do |word|
