@@ -40,6 +40,12 @@ describe "run_repeating_letters" do
         run_repeating_letters("spec/test_files/no_repeats.txt") 
       }.to output("Your file contains no valid words.\n").to_stdout
     end
+    
+    it "should exit with an error when given a file containing only punctuation" do
+      expect{ 
+        run_repeating_letters("spec/test_files/punctuation_only.txt") 
+      }.to output("Your file contains no valid words.\n").to_stdout
+    end
   end
   
   describe "return the correct word from text files with variosu content" do
@@ -72,6 +78,11 @@ describe "run_repeating_letters" do
     it "should maintain all formatting and punctuation in the answer string" do
       word = run_repeating_letters("spec/test_files/original_formatting.txt")
       expect( word ).to eq("s-U-n-Nn'!y")
+    end
+    
+    it "should can handle multi line text content" do
+      word = run_repeating_letters("spec/test_files/multi_line.txt")
+      expect( word ).to eq("weeeee")
     end
   end
 end
