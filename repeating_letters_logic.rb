@@ -51,33 +51,6 @@ def run_repeating_letters(filename)
   end
 end
 
-
-# def read_text_from_file(file)
-#   # First, extract the text from our file object
-#   text = file.read
-#   File.open(filename, "r") do |f|
-#   
-#   # strip the text down to usable characters only
-#   stripped_text = text.downcase.gsub(/[^a-z0-9\s]/i, '')
-#   # and check to make sure this text contains at least two
-#   # viable characters before proceeding. Text with a single
-#   # character could contain no duplicates and does not
-#   # meet our criteria
-#   unless stripped_text.length >= 2
-#     abort("Invalid content")
-#   end
-#   # Return the original text for now since we want to maintain formatting
-#   # for our final output
-#   text
-# end
-
-def has_repeated_letters?(word)
-  # If a string's length is not equal to the count of unique
-  # characters it contains, we know it contains at least one
-  # instance of a duplicate letter
-  word.length != word.split('').uniq.length
-end
-
 def score_word(word)
   # Split up our word into an array of characters so
   # we can use emuberables methods that are unavailable to strings
@@ -93,8 +66,3 @@ def score_word(word)
   # how many times it repeats
   score = letter_frequency.max_by { |k,v| v }[1]
 end
-
-# empty file
-# too short
-# ties
-# no such file
