@@ -29,13 +29,13 @@ describe "Test File Inputs" do
   
   it "should continue and return 'aa' on a file with at least two suitable characters" do
     word = run_repeating_letters("spec/test_files/just_long_enough.txt")
-    expect( word ).to eq("a'a")
+    expect( word ).to eq("aa")
   end
   
   it "should output an error message if the text file contains no words with repeating letters" do
     expect{ 
       run_repeating_letters("spec/test_files/no_repeats.txt") 
-    }.to output("This text does not contain any words with repeating letters\n").to_stdout
+    }.to output("No repeating letters.\n").to_stdout
   end
 end
 
@@ -51,24 +51,19 @@ describe "get_file_name" do
       expect(get_file_name).to be == "text.txt"
     end
   end
+end
+
+describe "run_repeating_letters - wrapper method, contained logic tested separately" do
+  it "should return the correct answer when given a valid file name" do
+    word = run_repeating_letters('spec/test_files/valid.txt')
+    expect( word ).to eq("Example")
+  end
   
-  # describe "invalid input" do
-  #   before do
-  #     $stdin = StringIO.new("invalid\n")
-  #   end
-  #   after do
-  #     $stdin = STDIN
-  #   end
-  #   it "should abort the program after invalid path is provided" do
-  #     begin
-  #       expect( read_text_from_file(file) ).should raise_error SystemExit
-  #     rescue SystemExit
-  #     end  
-  #     # expect{ 
-  #     #   get_file_name 
-  #     # }.to output("Please make sure you are entering a file name or path ending with .txt\n").to_stdout
-  #   end
-  # end
+  it "should give the correct response to a nonexistant file name" do
+    expect{ 
+      run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
+    }.to output("No such file.\n").to_stdout
+  end
 end
 
 describe "open_file" do
@@ -79,7 +74,7 @@ describe "open_file" do
   it "should rescue an invalid file path and output an error message" do
     expect{ 
       open_file('spec/test_files/invalid.txt') 
-    }.to output("No such file, please try again.\n").to_stdout
+    }.to output("No such file.\n").to_stdout
   end
 end
 
@@ -113,8 +108,8 @@ describe "get_winning_word" do
   end
   
   it "should return the first occuring word in the event of a tie" do
-    text = "what's that there?"
-    expect( get_winning_word(text) ).to eq("that")
+    text = "what's that? What's THAT!??"
+    expect( get_winning_word(text) ).to eq("that?")
   end
   
   it "should ignore punctuation" do
