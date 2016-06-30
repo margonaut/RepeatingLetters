@@ -23,17 +23,9 @@ describe "run_repeating_letters - wrapper method, contained logic tested separat
   end
   
   it "should give the correct response to a nonexistant file name" do
-    begin
-      @file = open_file('spec/test_files/adsfasdfasdf.txt')
-    rescue SystemExit
-    end
-    binding.pry
-    @file.result.should == :logics
-    # begin
-    #   file = open_file('spec/test_files/adsfasdfasdf.txt')
-    #   expect( read_text_from_file(file) ).should raise_error SystemExit
-    # rescue SystemExit
-    # end 
+    expect{ 
+      run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
+    }.to output("No such file.\n").to_stdout
   end
 end
 

@@ -21,9 +21,10 @@ def run_repeating_letters(filename)
   # The main program behavior is separated from terminal input 
   # interaction in this wrapper method for convinient use in 
   # benchmarking and some areas of the test suite
-  file = open_file(filename)
-  text = read_text_from_file(file)
-  get_winning_word(text)
+  if file = open_file(filename)
+    text = read_text_from_file(file)
+    get_winning_word(text)
+  end
 end
 
 def open_file(filename)
@@ -33,7 +34,6 @@ def open_file(filename)
     file = File.open(filename, "r")
   rescue Errno::ENOENT => e
     puts "No such file."
-    exit
   end
 end
 
