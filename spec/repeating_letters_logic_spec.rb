@@ -1,30 +1,33 @@
 require_relative '../repeating_letters_logic'
 require 'pry'
+require 'stringio'
 
 describe "get_file_name" do
-  it "should return filename string for valid input" do
-    thing = []
-    allow(thing).to receive(:gets).and_return("test.txt")
-    thing = get_file_name
-    
-    expect(thing).to eq("text.txt")
+  describe "valid input" do
+    before do
+      $stdin = StringIO.new("text.txt\n")
+    end
+    after do
+      $stdin = STDIN
+    end
+    it "should return the stripped string of a valid file input" do
+      expect(get_file_name).to be == "text.txt"
+    end
   end
   
-  # it "should" do
-  #   allow(get_file_name).to receive(:gets).and_return("examplefile")
-  #   # filename = get_file_name
-  #   # filename.stub!(:gets) { "examplefile.txt" }
-  #   expect( filename ).to eq("examplefile.txt")
-  # end
-  # it "should return the user's valid filename" do
-  #   filename = String.new
-  #   allow(filename).to receive(:gets).and_return("example.txt")
-  # end
-  # it "should prompt user for input" do
-  #   expect{
-  #     get_file_name
-  #   }.to output("haalp").to_stdout
-  # end
+  describe "invalid input" do
+    before do
+      $stdin = StringIO.new("invalid\n")
+    end
+    after do
+      $stdin = STDIN
+    end
+    it "should abort the program after invalid path is provided" do
+      expect{ 
+        get_file_name 
+      }.to output("Please make sure you are entering a file name or path ending with .txt\n").to_stdout
+    end
+  end
 end
 
 describe "open_file" do

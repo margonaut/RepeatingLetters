@@ -4,14 +4,14 @@ def get_file_name
   
   # Grab the filepath from user input, and strip it to make
   # sure we're getting only the string and not any newline characters
-  filename = gets.strip
+  filename = $stdin.gets.chomp
   
   # Our program is looking for a text file. We can perform a first
   # basic check by making sure the given path ends with the
   # correct file extension
   until filename.end_with?(".txt")
     puts "Please make sure you are entering a file name or path ending with .txt"
-    filename = gets.strip
+    filename = get_file_name
   end
   filename
 end
