@@ -1,3 +1,12 @@
+def run_repeating_letters(filename)
+  # open file
+  file = open_file(filename)
+  # retreive text content from file
+  text = read_text_from_file(file)
+  # retreive winning word from text content
+  get_winning_word(text)
+end
+
 def get_file_name
   puts "Please enter the name or path of the file you wish to scan"
   puts "For example, 'example.txt'"
