@@ -65,7 +65,7 @@ def get_winning_word(text)
   # Break the text down into individual words
   words = text.split(' ')
   
-  # Sort by the length of the word with extra characters removed, longest first.
+  # Sort by the length of the words with extra characters removed, longest first.
   words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
   
   
@@ -73,8 +73,8 @@ def get_winning_word(text)
     # We can greatly reduce runtime at scale by eliminating a big chunk
     # of short words. Because we maintain the winning_score and have sorted
     # our words array by length, we know that the winning_score will be
-    # impossible to beat once we reach word with a length less than the current 
-    # high score. At that point we can disregard the rest of the words.
+    # impossible to beat once we reach words with a length less than the current 
+    # winning_score. At that point we can disregard the rest of the words.
     if word.length > winning_score
       
       # We want to keep the original word formatting handy for our final output,
