@@ -98,7 +98,7 @@ def get_winning_word(text)
     # Simply returning the winning string instead of descriptive text 
     # will make integration into our test suite easier. A terminal output
     # is included here for human readability
-    puts winning_word
+    # puts winning_word
     winning_word
   else
     # If a winning_word does not exist, we know we have not found
