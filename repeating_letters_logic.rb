@@ -18,18 +18,29 @@ def get_file_name
 end
 
 def run_repeating_letters(filename)
-  # The main program behavior is separated from terminal input 
-  # interaction in this wrapper method for convinient use in 
-  # benchmarking and some areas of the test suite
+  winning_word = nil
+  winning_score = 0
+  
+  
   File.open('filename', 'r') do |file|
+    # let's process the text as we load each line
+    # this way we don't have to persist potentially huge collections of data
+    # for use elsewhere
     file.each_line do |line|
-      
+      # each line is made up of words
+      line.split(' ').each do |word|
+        # if the winning_score is greater than our word length, we know it
+        # has no chance of being the new winner, and move on
+        next if winning_score > word.length
+        score = score_word(word)
+        if score > winning_score
+          winning_word = word
+          winning_score = score
+        end
+      end
     end
-    
   end
-    text = read_text_from_file(file)
-    get_winning_word(text)
-  end
+  winning_word
 end
 
 def open_file(filename)
@@ -144,7 +155,7 @@ end
 def score_word(word)
   # Split up our word into an array of characters so
   # we can use emuberables methods that are unavailable to strings
-  letters = word.split('')
+  letters = word.downcase.gsub(/[^a-z0-9\s]/i, '').split('')
   
   # We're going to pass a new Hash with a default value of zero
   # into .each_with_object, which will iterate over our letters array
@@ -155,6 +166,5 @@ def score_word(word)
   # as our word score - we don't care about the character, just
   # how many times it repeats
   score = letter_frequency.max_by { |k,v| v }[1]
-  {score:word}
 end
 
