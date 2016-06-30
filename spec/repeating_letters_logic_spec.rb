@@ -76,8 +76,6 @@ describe "run_repeating_letters" do
   end
 end
 
-# repeated letters
-
 describe "get_file_name" do
   describe "valid input" do
     before do
