@@ -53,6 +53,7 @@ def run_repeating_letters(filename)
       # return the value for testing
       winning_word
     else
+      # If we end up here, the file contained no viable content
       puts "Your file contains no valid words."
     end
   rescue Errno::ENOENT => e
@@ -63,6 +64,9 @@ end
 def score_word(word)
   # Split up our word into an array of characters so
   # we can use emuberables methods that are unavailable to strings
+  
+  # We're also going to strip out extra characters so we only
+  # generate a frequency check on letters that matter 
   letters = word.downcase.gsub(/[^a-z0-9\s]/i, '').split('')
     
   # We're going to pass a new Hash with a default value of zero
@@ -72,6 +76,8 @@ def score_word(word)
   
   # The maximum value in our new letter_frequency array will be used
   # as our word score - we don't care about the character, just
-  # how many times it repeats
+  # how many times it repeats. If our word didn't have any viable characters
+  # the letter_frequency variable wont have a value. We'll pass along
+  # a zero instead
   letter_frequency.empty? ? 0 : letter_frequency.max_by(&:last)[1]
 end

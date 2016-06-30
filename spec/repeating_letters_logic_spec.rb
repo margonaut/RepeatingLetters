@@ -2,12 +2,6 @@ require_relative '../repeating_letters_logic'
 require 'pry'
 require 'stringio'
 
-# handle valid file
-# handle invalid path
-# handle empty file
-# handle file with too short content
-# handle file with just enough content
-# handle a file 
 
 describe "run_repeating_letters" do
   it "should handle valid file name" do
