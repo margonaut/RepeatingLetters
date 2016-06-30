@@ -4,6 +4,7 @@ def get_file_name
   
   # Grab the filepath from user input, and strip it to make
   # sure we're getting only the string and not any newline characters
+  # $stdin used for convinient test stubbing
   filename = $stdin.gets.chomp
   
   # Our program is looking for a text file. We can perform a first
@@ -17,9 +18,9 @@ def get_file_name
 end
 
 def run_repeating_letters(filename)
-  # The main program behavior is separated in this
-  # wrapper method for convinient use in benchmarking and
-  # some areas of the test suite
+  # The main program behavior is separated from terminal input 
+  # interaction in this wrapper method for convinient use in 
+  # benchmarking and some areas of the test suite
   file = open_file(filename)
   text = read_text_from_file(file)
   get_winning_word(text)
@@ -55,23 +56,27 @@ def read_text_from_file(file)
 end
 
 def get_winning_word(text)
-  # Break the text down into individual words
-  words = text.split(' ')
-  # words = words.reverse.sort_by{ |a| a.length }.reverse
-  words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
-  
   # We're only going to maintain the word in the winning position
   # along with the corresponding score
   winning_word = nil
   winning_score = 0
   
+  # Break the text down into individual words
+  words = text.split(' ')
+  
+  # Sort by the length of the word with extra characters removed, longest first.
+  words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
+  
+  
   words.each do |word|
-    # We can greatly reduce the runtime at scale by eliminating a big chunk
-    # of short words. Because we maintain the winning score and have sorted
-    # our words array by length, we know that the winning score will be
-    # impossible to beat once we reach words with less letters than that score
+    # We can greatly reduce runtime at scale by eliminating a big chunk
+    # of short words. Because we maintain the winning_score and have sorted
+    # our words array by length, we know that the winning_score will be
+    # impossible to beat once we reach word with a length less than the current 
+    # high score. At that point we can disregard the rest of the words.
     if word.length > winning_score
-      # We want to keep the original text handy for our final output,
+      
+      # We want to keep the original word formatting handy for our final output,
       # but we'll need to score our words based on a version cleaned up with
       # a regex pattern.
       stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
@@ -83,10 +88,10 @@ def get_winning_word(text)
         
         # now that we know we're working with a word
         # that contains repeated letters, let's evaluate it for
-        # a score - the highest number of times a letter is repeated
+        # a score: the highest number of times a letter is repeated
         score = score_word(stripped_word)
         
-        # Compare this score with that of the current winning word.
+        # Compare this score with that of the current winning_word.
         # Since the first word with the highest score is the one
         # we want to return, we'll only replace our winning_word
         # if we have a score that is greater, not just equal to
@@ -96,8 +101,6 @@ def get_winning_word(text)
           winning_word = word
         end
       end  
-    else
-      winning_word
     end
   end
   
@@ -106,7 +109,7 @@ def get_winning_word(text)
   # the default winning_word will never be overwritten
   if winning_word
     # Simply returning the winning string instead of descriptive text 
-    # will make integration into our test suite easier. A terminal output
+    # will make integration into our test suite easier. An optional terminal output
     # is included here for human readability
     # puts winning_word
     winning_word
