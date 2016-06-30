@@ -3,6 +3,9 @@ require_relative 'repeating_letters_logic'
 require_relative 'original_program_logic'
 require 'ruby-prof'
 
+# Run this file to see a printout of time and efficiency benchmarks comparing
+# the first solution to the new solution
+
 puts "BENCHMARK TIMES \n"
 
 puts "\n Repeating Letters - Updated Version \n "
