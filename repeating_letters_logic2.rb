@@ -33,7 +33,6 @@ def open_file(filename)
     file = File.open(filename, "r")
   rescue Errno::ENOENT => e
     puts "No such file."
-    exit
   end
 end
 
@@ -67,50 +66,17 @@ def get_winning_word(text)
   
   # Sort by the length of the word with extra characters removed, longest first.
   words = words.reverse.sort_by{ |a| a.gsub(/[^a-z\s]/i, '').length }.reverse
-  
-  
-  words.each do |word|
-    # We can greatly reduce runtime at scale by eliminating a big chunk
-    # of short words. Because we maintain the winning_score and have sorted
-    # our words array by length, we know that the winning_score will be
-    # impossible to beat once we reach word with a length less than the current 
-    # high score. At that point we can disregard the rest of the words.
-    if word.length > winning_score
-      
-      # We want to keep the original word formatting handy for our final output,
-      # but we'll need to score our words based on a version cleaned up with
-      # a regex pattern.
-      stripped_word = word.downcase.gsub(/[^a-z\s]/i, '')
-      
-      # Let's make sure there are repeated characters
-      # present in our word before we continue. Otherwise,
-      # our program will move on to the next word
-      if has_repeated_letters?(stripped_word)
-        
-        # now that we know we're working with a word
-        # that contains repeated letters, let's evaluate it for
-        # a score: the highest number of times a letter is repeated
-        score = score_word(stripped_word)
-        
-        # Compare this score with that of the current winning_word.
-        # Since the first word with the highest score is the one
-        # we want to return, we'll only replace our winning_word
-        # if we have a score that is greater, not just equal to
-        # the current winner
-        if score > winning_score
-          winning_score = score
-          winning_word = word
-        end
-      end  
-    end
-  end
-  
+
+    words_and_lengths = words.map{|w|score_word(w)}.reduce Hash.new, :merge
+    max = words_and_lengths.keys.max
+    winning_word = words_and_lengths[max]
+    winning_score = max
   
   # If our text file ends up containing no words with repeating letters,
   # the default winning_word will never be overwritten
   if winning_word
     # Simply returning the winning string instead of descriptive text 
-    # will make integration into our test suite easier. A terminal output
+    # will make integration into our test suite easier. An optional terminal output
     # is included here for human readability
     # puts winning_word
     winning_word
@@ -142,5 +108,6 @@ def score_word(word)
   # as our word score - we don't care about the character, just
   # how many times it repeats
   score = letter_frequency.max_by { |k,v| v }[1]
+  {score:word}
 end
 

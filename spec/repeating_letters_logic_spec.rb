@@ -22,12 +22,19 @@ describe "run_repeating_letters - wrapper method, contained logic tested separat
     expect( word ).to eq("Example")
   end
   
-  # it "should give the correct response to a nonexistant file name" do
-  #   begin
-  #     expect( run_repeating_letters('spec/test_files/sdfsdfvalid.txt') ).should raise_error SystemExit
-  #   rescue SystemExit
-  #   end  
-  # end
+  it "should give the correct response to a nonexistant file name" do
+    begin
+      @file = open_file('spec/test_files/adsfasdfasdf.txt')
+    rescue SystemExit
+    end
+    binding.pry
+    @file.result.should == :logics
+    # begin
+    #   file = open_file('spec/test_files/adsfasdfasdf.txt')
+    #   expect( read_text_from_file(file) ).should raise_error SystemExit
+    # rescue SystemExit
+    # end 
+  end
 end
 
 describe "open_file" do
@@ -50,14 +57,6 @@ describe "read_text_from_file" do
   
   it "should abort if the text file is empty" do
     file = open_file('spec/test_files/empty.txt')
-    begin
-      expect( read_text_from_file(file) ).should raise_error SystemExit
-    rescue SystemExit
-    end  
-  end
-  
-  it "should abort if the text file does not exist" do
-    file = open_file('spec/test_files/adsfasdfasdf.txt')
     begin
       expect( read_text_from_file(file) ).should raise_error SystemExit
     rescue SystemExit
