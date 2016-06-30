@@ -19,8 +19,9 @@ def find_winning_word(text)
   analyzed_words = analyze_words(text)
   winning_word = analyzed_words.max_by {|k, v| v[1] }
   if winning_word[1][1] > 1
-    puts "The winning word is \"#{winning_word[0]}\""
-    puts "The letter #{winning_word[1][0]} is repeated #{winning_word[1][1]} times."
+    winning_word
+    # puts "The winning word is \"#{winning_word[0]}\""
+    # puts "The letter #{winning_word[1][0]} is repeated #{winning_word[1][1]} times."
   else
     puts "There are no words with repeating letters."
   end
