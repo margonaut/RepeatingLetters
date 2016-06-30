@@ -1,6 +1,5 @@
 require 'benchmark'
 require_relative 'repeating_letters_logic'
-require_relative 'repeating_letters_logic2'
 require_relative 'original_program_logic'
 require 'ruby-prof'
 

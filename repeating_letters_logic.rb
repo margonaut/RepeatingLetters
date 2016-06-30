@@ -104,14 +104,13 @@ def get_winning_word(text)
     end
   end
   
-  
   # If our text file ends up containing no words with repeating letters,
   # the default winning_word will never be overwritten
   if winning_word
     # Simply returning the winning string instead of descriptive text 
     # will make integration into our test suite easier. An optional terminal output
     # is included here for human readability
-    # puts winning_word
+    puts winning_word
     winning_word
   else
     # If a winning_word does not exist, we know we have not found
