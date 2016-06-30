@@ -9,7 +9,7 @@ def get_file_name
   filename = $stdin.gets.chomp
   
   # Our program is looking for a text file. We can do a quick file
-  # extension formatting check before proceeding
+  # extension formatting check before letting the user move on
   until filename.end_with?(".txt")
     puts "Enter a file path ending with .txt"
     filename = get_file_name
@@ -28,11 +28,11 @@ def run_repeating_letters(filename)
   # bad paths and exit the program gracefully
   begin
     File.open(filename, 'r') do |file|
-      # let's process the text as we load each line
+      # let's process the text as we load each line of the file
       # this way we don't have to persist potentially huge collections of data
       # for use elsewhere
       file.each_line do |line|
-        # we're going to break down our file by line, then word
+        # we're going to break down our file by line, then by word
         line.split(' ').each do |word|
           # if the winning_score is greater than our word length, we know it
           # has no chance of being the new winner and can move on
@@ -41,6 +41,7 @@ def run_repeating_letters(filename)
           # the current winning_score (not just meet it) to become the
           # new winning_word
           score = score_word(word)
+          # new winning_words and scores overwrite the old values
           if score > winning_score
             winning_word = word
             winning_score = score
@@ -63,11 +64,11 @@ def run_repeating_letters(filename)
 end
 
 def score_word(word)
-  # Split up our word into an array of characters so
-  # we can use emuberables methods that are unavailable to strings
-  
-  # We're also going to strip out extra characters so we only
+  # First we're going to strip out extra characters so we only
   # generate a frequency check on letters that matter 
+  
+  # Then we split up our word into an array of characters so
+  # we can use emuberables methods that are unavailable to strings
   letters = word.downcase.gsub(/[^a-z0-9\s]/i, '').split('')
     
   # We're going to pass a new Hash with a default value of zero
@@ -78,7 +79,7 @@ def score_word(word)
   # The maximum value in our new letter_frequency array will be used
   # as our word score - we don't care about the character, just
   # how many times it repeats. If our word didn't have any viable characters
-  # the letter_frequency variable wont have a value. We'll pass along
-  # a zero instead
+  # the letter_frequency variable wont have a value. We would
+  # pass along a zero instead
   letter_frequency.empty? ? 0 : letter_frequency.max_by(&:last)[1]
 end
