@@ -1,11 +1,31 @@
 require_relative '../repeating_letters_logic'
 require 'pry'
 
-# describe "get_file" do
-#   it "should prompt the user for a file path" do
-#     
-#   end
-# end
+describe "get_file_name" do
+  it "should return filename string for valid input" do
+    thing = []
+    allow(thing).to receive(:gets).and_return("test.txt")
+    thing = get_file_name
+    
+    expect(thing).to eq("text.txt")
+  end
+  
+  # it "should" do
+  #   allow(get_file_name).to receive(:gets).and_return("examplefile")
+  #   # filename = get_file_name
+  #   # filename.stub!(:gets) { "examplefile.txt" }
+  #   expect( filename ).to eq("examplefile.txt")
+  # end
+  # it "should return the user's valid filename" do
+  #   filename = String.new
+  #   allow(filename).to receive(:gets).and_return("example.txt")
+  # end
+  # it "should prompt user for input" do
+  #   expect{
+  #     get_file_name
+  #   }.to output("haalp").to_stdout
+  # end
+end
 
 describe "open_file" do
   it "should return a File object for a valid file path" do
@@ -30,13 +50,7 @@ describe "read_text_from_file" do
     begin
       expect( read_text_from_file(file) ).should raise_error SystemExit
     rescue SystemExit
-    end
-    
-  #   expect{
-  #   begin read_text_from_file(file)
-  #   rescue SystemExit
-  #   end
-  # }.to output("This file does not contain suitable text content").to_stdout
+    end  
   end
   
   it "should abort if the text file contains less than two viable characters" do
