@@ -2,43 +2,52 @@ require_relative '../repeating_letters_logic'
 require 'pry'
 require 'stringio'
 
+# handle valid file
+# handle invalid path
+# handle empty file
+# handle file with too short content
+# handle file with just enough content
+# handle a file 
 
-describe "get_file_name" do
-  describe "valid input" do
-    before do
-      $stdin = StringIO.new("text.txt\n")
-    end
-    after do
-      $stdin = STDIN
-    end
-    it "should return the stripped string of a valid file input" do
-      expect(get_file_name).to be == "text.txt"
-    end
+describe "run_repeating_letters" do
+  it "should handle valid file name" do
+    word = run_repeating_letters('spec/test_files/valid.txt')
+    expect( word ).to eq("Example")
+  end
+  
+  it "should exit with an error when given an invalid path" do
+    expect{ 
+      run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
+    }.to output("No such file.\n").to_stdout
+  end
+
+  it "should exit with an error when given an empty file" do
+    expect{ 
+      run_repeating_letters("spec/test_files/empty.txt")
+    }.to output("Your file contains no valid words.\n").to_stdout
+  end
+
+  it "should exit with error when given a file containing less than two suitable characters" do
+      expect{ 
+        run_repeating_letters("spec/test_files/too_short.txt")
+      }.to output("Your file contains no valid words.\n").to_stdout
+  end
+
+  it "should continue when given a file containing at least two valid characters" do
+    word = run_repeating_letters("spec/test_files/just_long_enough.txt")
+    expect( word ).to eq("aa")
+  end
+
+  it "should exit with an error if the text file contains no words with repeating letters" do
+    expect{ 
+      run_repeating_letters("spec/test_files/no_repeats.txt") 
+    }.to output("Your file contains no valid words.\n").to_stdout
   end
 end
-
-# describe "run_repeating_letters - wrapper method, contained logic tested separately" do
-#   it "should return the correct answer when given a valid file name" do
-#     word = run_repeating_letters('spec/test_files/valid.txt')
-#     expect( word ).to eq("Example")
-#   end
-#   
-#   it "should give the correct response to a nonexistant file name" do
-#     expect{ 
-#       run_repeating_letters('spec/test_files/sdfsdfvalid.txt') 
-#     }.to output("No such file.\n").to_stdout
-#   end
-# end
 
 # describe "open_file" do
 #   it "should return a File object for a valid file path" do
 #     expect( open_file('spec/test_files/valid.txt').class ).to eq(File)
-#   end
-#   
-#   it "should rescue an invalid file path and output an error message" do
-#     expect{ 
-#       open_file('spec/test_files/invalid.txt') 
-#     }.to output("No such file.\n").to_stdout
 #   end
 # end
 
@@ -65,42 +74,27 @@ end
 #   end
 # end
 
-# describe "get_winning_word" do
-#   it "should return the word with the most frequent repeating letter" do
-#     text = "Romeo, Romeo, wherefore art thou Romeo?"
-#     expect( get_winning_word(text) ).to eq("wherefore")
-#   end
 #   
   # it "should return the first occuring word in the event of a tie" do
   #   text = "what's that? What's THERE!??"
   #   expect( get_winning_word(text) ).to eq("that?")
   # end
-#   
-#   it "should ignore punctuation" do
-#     text = "break-n-fix break-n-fix zoom"
-#     expect( get_winning_word(text) ).to eq("zoom")
-#   end
-#   
-#   it "should consider upper and lower case letter the same" do
-#     text = "fOod Food"
-#     expect( get_winning_word(text) ).to eq("fOod")
-#   end
-#   
-#   it "should return the correct word with original formatting and punctuation" do
-#     text = "It's a bright and s-U-n-Nn'!y day"
-#     expect( get_winning_word(text) ).to eq("s-U-n-Nn'!y")
-#   end
-# end
 
-# describe "has_repeated_letters?" do
-#   it "should return true for a string with repeated letters" do
-#     expect( has_repeated_letters?("woods") ).to eq(true)
-#   end
-#   
-#   it "should return false for a string with no repeated letters" do
-#     expect( has_repeated_letters?("taken") ).to eq(false)
-#   end
-# end
+# repeated letters
+
+describe "get_file_name" do
+  describe "valid input" do
+    before do
+      $stdin = StringIO.new("text.txt\n")
+    end
+    after do
+      $stdin = STDIN
+    end
+    it "should return the stripped string of a valid file input" do
+      expect(get_file_name).to be == "text.txt"
+    end
+  end
+end
 
 describe "score_word" do
   

@@ -2,10 +2,7 @@ require_relative '../repeating_letters_logic'
 require 'pry'
 
 describe "Test File Inputs" do
-  it "should return 'Example' from example.txt" do
-    word = run_repeating_letters("spec/test_files/valid.txt")
-    expect( word ).to eq("Example")
-  end
+
   
   it "should return 'wherefore' from romeo.txt" do
     word = run_repeating_letters("spec/test_files/romeo.txt")
@@ -27,26 +24,9 @@ describe "Test File Inputs" do
     expect( word ).to eq("foOd")
   end
   
-  it "should exit the program with an error message when given an empty file" do
-    expect{ 
-      run_repeating_letters("spec/test_files/empty.txt")
-    }.to output("Your file contains no valid words.\n").to_stdout
+  it "should maintain all formatting and punctuation in the answer string" do
+    word = run_repeating_letters("spec/test_files/original_formatting.txt")
+    expect( word ).to eq("s-U-n-Nn'!y")
   end
   
-  it "should exit with error message when given a file containing less than two suitable characters" do
-      expect{ 
-        run_repeating_letters("spec/test_files/too_short.txt")
-      }.to output("Your file contains no valid words.\n").to_stdout
-  end
-  
-  it "should continue and return 'aa' on a file with at least two suitable characters" do
-    word = run_repeating_letters("spec/test_files/just_long_enough.txt")
-    expect( word ).to eq("aa")
-  end
-  
-  it "should output an error message if the text file contains no words with repeating letters" do
-    expect{ 
-      run_repeating_letters("spec/test_files/no_repeats.txt") 
-    }.to output("Your file contains no valid words.\n").to_stdout
-  end
 end
