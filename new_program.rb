@@ -1,5 +1,24 @@
 require 'pry'
 
+def get_file
+  puts "Please enter the name or path of the file you wish to scan."
+  puts "For example, 'example.txt'"
+  
+  # Grab the filepath from user input, and strip it to make
+  # sure we're getting only the string and not the /n enter character
+  filename = gets.strip
+  
+  # Our program is looking for a text file. We can perform a first
+  # basic check by making sure the correct file extension is included,
+  # and prompt for input again if not
+  until filename.end_with?(".txt")
+    puts "Please make sure you are entering a file name or path ending with .txt"
+    filename = gets.strip
+  end
+  
+  filename
+end
+
 def read_from_file(filename)
   # First extract the text from the file
   file = File.open(filename, "r")
@@ -16,25 +35,6 @@ def read_from_file(filename)
   # Return the original text since we want to maintain formatting
   # for our final output
   text
-end
-
-def get_file
-  puts "Please enter the name or path of the file you wish to scan."
-  puts "For example, 'example.txt'"
-  
-  # Grab the filepath from user input, and strip it to make
-  # sure we're getting only the string and not the /n enter character
-  filename = gets.strip
-  
-  # Our program is looking for a text file. We can perform a first
-  # basic check by making sure the correct file extension is included,
-  # and prompt for input again if not
-  until filename.include?(".txt")
-    puts "Please make sure you are entering a file name or path ending with .txt"
-    filename = gets.strip
-  end
-  
-  filename
 end
 
 def score_word(word)
