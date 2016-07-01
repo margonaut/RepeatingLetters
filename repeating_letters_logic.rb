@@ -1,4 +1,4 @@
-require 'pry'
+
 # Users will be prompted for a file path when the program starts
 def get_file_name
   puts "Enter the path of the .txt file you wish to scan"
@@ -38,7 +38,7 @@ def run_repeating_letters(filename)
           # has no chance of being the new winner and can move on
           next if winning_score > word.length
           # each word is assigned a score, which has to beat
-          # the current winning_score (not just meet it) to become the
+          # the current winning_score (not just match it) to become the
           # new winning_word
           score = score_word(word)
           # new winning_words and scores overwrite the old values

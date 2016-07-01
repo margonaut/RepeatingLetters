@@ -1,5 +1,4 @@
 require_relative '../repeating_letters_logic'
-require 'pry'
 require 'stringio'
 
 
@@ -48,7 +47,7 @@ describe "run_repeating_letters" do
     end
   end
   
-  describe "return the correct word from text files with variosu content" do
+  describe "return the correct word from text files with various content" do
     
     it "should return 'wherefore' from romeo.txt" do
       word = run_repeating_letters("spec/test_files/romeo.txt")
