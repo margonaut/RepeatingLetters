@@ -1,7 +1,6 @@
 require_relative '../repeating_letters_logic'
 require 'stringio'
 
-
 describe "run_repeating_letters" do
   
   describe "handle different file states" do
@@ -88,6 +87,7 @@ end
 
 describe "get_file_name" do
   describe "valid input" do
+    
     before do
       $stdin = StringIO.new("text.txt\n")
     end
