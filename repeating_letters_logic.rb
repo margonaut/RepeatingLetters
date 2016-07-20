@@ -1,4 +1,3 @@
-
 # Users will be prompted for a file path when the program starts
 def get_file_name
   puts "Enter the path of the .txt file you wish to scan"

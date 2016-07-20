@@ -1,3 +1,9 @@
+# Repeating Letters
+
+Programming exercise. This solution focuses on runtime efficiency.
+
+For a given text file, return the word with the highest count of a repeating letter. Capitals and lower case letters count as the same character. Ignore punctuation. In the event of a tie, the word that appears first wins.
+
 1. Project setup: bundle install
 
 2. Run the program: ruby repeating_letters.rb
